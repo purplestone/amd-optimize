@@ -47,8 +47,11 @@ module.exports = traceModule = (startModuleName, config, allModules = [], fileLo
     if moduleName[0] == "."
       moduleName = util.fixModuleName(path.join(path.dirname(relativeToFileName), moduleName))
 
-    if config.map and config.map[relativeTo] and config.map[relativeTo][moduleName]
-      moduleName = config.map[relativeTo][moduleName]
+    if config.map
+      if config.map['*'] and config.map['*'][moduleName]
+        moduleName = config.map['*'][moduleName]
+      if config.map[relativeTo] and config.map[relativeTo][moduleName]
+        moduleName = config.map[relativeTo][moduleName]
 
     # add resolved name to list of text files
     if (isText)

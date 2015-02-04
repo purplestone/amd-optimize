@@ -121,6 +121,24 @@ describe "core", ->
       done
     )
 
+  it "should work with `map` * config", (done) ->
+
+    checkExpectedFiles(
+      ["bar.js", "index.js"]
+
+      vinylfs.src("#{dir}/fixtures/core/*.js")
+        .pipe(amdOptimize(
+          "index"
+          map : {
+            '*' : {
+              foo : "bar"
+            }
+          }
+        ))
+
+      done
+    )
+
   it "should work with `map` config for renamed modules (`paths`)", (done) ->
 
     checkExpectedFiles(
